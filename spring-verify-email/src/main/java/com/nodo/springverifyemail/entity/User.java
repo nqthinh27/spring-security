@@ -1,12 +1,13 @@
 package com.nodo.springverifyemail.entity;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,9 +27,7 @@ public class User implements UserDetails {
     private String email;
     @Column(name = "activated")
     private Byte activated;
-    @Column(name = "role")
-    private Role role;
-
+    private Byte role;
     public Long getId() {
         return id;
     }
@@ -56,27 +55,27 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     public void setPassword(String password) {
@@ -107,11 +106,11 @@ public class User implements UserDetails {
         this.activated = activated;
     }
 
-    public Role getRole() {
+    public Byte getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(Byte role) {
         this.role = role;
     }
 

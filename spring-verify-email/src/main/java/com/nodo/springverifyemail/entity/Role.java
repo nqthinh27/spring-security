@@ -1,8 +1,8 @@
 package com.nodo.springverifyemail.entity;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import javax.persistence.*;
 
 import java.util.Objects;
 @AllArgsConstructor

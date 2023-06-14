@@ -20,15 +20,9 @@ INSERT INTO `verify_email_app`.`role` (`id`, `role`) VALUES ('1', 'ROLE_USER');
 INSERT INTO `verify_email_app`.`role` (`id`, `role`) VALUES ('2', 'ROLE_ADMIN');
 
 CREATE TABLE `verify_email_app`.`activation_key` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL auto_increment,
   `user_id` INT NULL,
   `key` VARCHAR(255) NULL,
+  constraint fk_activation_user foreign key (user_id) references user(id),
   PRIMARY KEY (`id`));
 
-CREATE TABLE `verify_email_app`.`activation_key` (
-  `id` INT NOT NULL,
-  `user_id` INT NULL,
-  `key` VARCHAR(255) NULL,
-  `created_at` DATETIME NULL,
-  PRIMARY KEY (`id`)
-  );

@@ -1,12 +1,10 @@
 package com.nodo.springverifyemail.entity;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.Objects;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,10 +16,11 @@ public class ActivationKey {
     @Column(name = "id")
     private Long id;
     @Column(name = "user_id")
-    private Integer userId;
-    private String key;
-    @Column(name = "created_at")
-    private Date createdAt;
+    private Long userId;
+    @Column(name = "active_key")
+    private String activeKey;
+    @Column(name = "expired_at")
+    private LocalDateTime expiredAt;
 
     public Long getId() {
         return id;
@@ -31,40 +30,32 @@ public class ActivationKey {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public String getKey() {
-        return key;
+    public String getActiveKey() {
+        return activeKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setActiveKey(String activeKey) {
+        this.activeKey = activeKey;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public LocalDateTime getExpiredAt() {
+        return expiredAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setExpiredAt(LocalDateTime expiredAt) {
+        this.expiredAt = expiredAt;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ActivationKey that = (ActivationKey) o;
-        return id == that.id && Objects.equals(userId, that.userId) && Objects.equals(key, that.key) && Objects.equals(createdAt, that.createdAt);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, userId, key, createdAt);
+    public boolean isExpired() {
+        LocalDateTime currentTime = LocalDateTime.now();
+        return currentTime.isAfter(expiredAt);
     }
 }
